@@ -46,10 +46,8 @@ export const VideoSection = () => {
       const video = videoRef.current;
       if (video) {
         video.playbackRate = videoSpeed;
-        if (progress > 0 && progress < 1) {
+        if (progress >= 0 && progress < 1) {
           video.play().catch(() => undefined);
-        } else {
-          video.pause();
         }
       }
 
@@ -80,6 +78,7 @@ export const VideoSection = () => {
             ref={videoRef}
             className="h-full w-full object-cover"
             autoPlay
+            loop
             muted
             playsInline
             preload="auto"
@@ -87,7 +86,7 @@ export const VideoSection = () => {
               const video = event.currentTarget;
               video.currentTime = video.duration * clamp(targetProgressRef.current * videoSpeed, 0, 1);
               video.playbackRate = videoSpeed;
-              if (targetProgressRef.current > 0 && targetProgressRef.current < 1) {
+              if (targetProgressRef.current >= 0 && targetProgressRef.current < 1) {
                 video.play().catch(() => undefined);
               }
             }}
@@ -108,15 +107,6 @@ export const VideoSection = () => {
           <span className="hidden text-[9px] font-semibold uppercase tracking-[0.24em] text-white/50 sm:block">
             LËXŠA / 2026
           </span>
-        </div>
-
-        <div className="absolute bottom-8 left-3 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-3 sm:flex lg:left-8">
-          <span className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/45 [writing-mode:vertical-rl]">
-            Scroll the story
-          </span>
-          <div className="relative h-28 w-px overflow-hidden bg-white/20">
-            <div className="absolute left-0 top-0 w-full origin-top bg-[#d5a66d] transition-transform duration-100" style={{ transform: "scaleY(var(--video-progress))" }} />
-          </div>
         </div>
 
         {videoError && (
