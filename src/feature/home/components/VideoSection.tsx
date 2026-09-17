@@ -2,7 +2,6 @@ import { ArrowDown, Play, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
-const videoSpeed = 3;
 
 export const VideoSection = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -22,7 +21,8 @@ export const VideoSection = () => {
 
       const video = videoRef.current;
       if (video && video.readyState >= 1 && Number.isFinite(video.duration)) {
-        video.currentTime = video.duration * clamp(nextProgress * videoSpeed, 0, 1);
+        video.currentTime = video.duration * nextProgress;
+        video.play().catch(() => undefined);
       }
 
       sectionRef.current?.style.setProperty("--video-progress", nextProgress.toString());
@@ -45,10 +45,8 @@ export const VideoSection = () => {
 
       const video = videoRef.current;
       if (video) {
-        video.playbackRate = videoSpeed;
-        if (progress >= 0 && progress < 1) {
-          video.play().catch(() => undefined);
-        }
+        video.playbackRate = 1;
+        video.play().catch(() => undefined);
       }
 
       if (animationFrameRef.current === null) {
@@ -84,11 +82,9 @@ export const VideoSection = () => {
             preload="auto"
             onLoadedData={(event) => {
               const video = event.currentTarget;
-              video.currentTime = video.duration * clamp(targetProgressRef.current * videoSpeed, 0, 1);
-              video.playbackRate = videoSpeed;
-              if (targetProgressRef.current >= 0 && targetProgressRef.current < 1) {
-                video.play().catch(() => undefined);
-              }
+              video.currentTime = video.duration * targetProgressRef.current;
+              video.playbackRate = 1;
+              video.play().catch(() => undefined);
             }}
             onError={() => setVideoError(true)}
           >
