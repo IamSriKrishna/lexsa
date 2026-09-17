@@ -100,7 +100,7 @@ export const HeroSection = () => {
             <div className="flex items-end justify-between gap-4">
               <div>
                 <p className="m-0 text-[10px] uppercase tracking-[0.2em] text-[#6b6e72]">Signature</p>
-                <p className="mt-2 font-serif text-[20px] font-bold leading-none tracking-[-0.04em] text-[#11151b]">$16.00</p>
+                <p className="mt-2 font-serif text-[20px] font-bold leading-none tracking-[-0.04em] text-[#11151b]">₹16.00</p>
               </div>
 
               <a href="#products" className="group inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#11151b]">
