@@ -23,7 +23,6 @@ export const VideoSection = () => {
       const video = videoRef.current;
       if (video && video.readyState >= 1 && Number.isFinite(video.duration)) {
         video.currentTime = video.duration * clamp(nextProgress * videoSpeed, 0, 1);
-        video.pause();
       }
 
       sectionRef.current?.style.setProperty("--video-progress", nextProgress.toString());
@@ -80,6 +79,7 @@ export const VideoSection = () => {
           <video
             ref={videoRef}
             className="h-full w-full object-cover"
+            autoPlay
             muted
             playsInline
             preload="auto"
